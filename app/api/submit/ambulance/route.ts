@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { backend } from "@/lib/data";
 import {
-  arr, bool, checkAccessCode, date, fail, optDate, optStr, personName, uuid,
+  arr, bool, checkAccessCode, date, fail, optDate, optPersonName, optStr, personName, uuid,
 } from "@/lib/api";
 
 type ResultIn = { point_id: unknown; is_ok: unknown; note: unknown };
@@ -22,9 +22,9 @@ export async function POST(req: Request) {
       check_date,
       shift,
       driver_name: personName(body.driver_name, "Driver name"),
+      staff_name: optPersonName(body.staff_name, "Staff name"),
       licence_no: optStr(body.licence_no, "Licence number", 60),
       licence_valid_until: optDate(body.licence_valid_until, "Licence validity"),
-      checked_by_name: optStr(body.checked_by_name, "Checked by", 120),
       remarks: optStr(body.remarks, "Remarks"),
       results: arr<ResultIn>(body.results, "Check points", 60).map((r) => ({
         point_id: uuid(r.point_id, "Check point"),

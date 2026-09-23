@@ -29,9 +29,10 @@ export type AmbulanceInput = {
   check_date: string;
   shift: "A" | "B" | "C";
   driver_name: string;
+  /** OHC staff countersigning the check — स्टाफ के हस्ताक्षर on the paper form. */
+  staff_name: string | null;
   licence_no: string | null;
   licence_valid_until: string | null;
-  checked_by_name: string | null;
   remarks: string | null;
   results: { point_id: string; is_ok: boolean; note: string | null }[];
 };
@@ -79,7 +80,8 @@ export type ExportBundle = {
   }[];
   ambulance: {
     check_date: string; shift: string; vehicle: string; driver_name: string;
-    licence_no: string; marks: string[]; failedIndexes: number[]; remarks: string;
+    staff_name: string; licence_no: string; marks: string[];
+    failedIndexes: number[]; remarks: string;
   }[];
   medicine: {
     period_month: string; category: string; name: string; qty: number | null;

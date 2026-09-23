@@ -23,6 +23,7 @@ export default function AmbulanceForm({
   const [date, setDate] = useState(istToday());
   const [shift, setShift] = useState<Shift | "">("");
   const [driver, setDriver] = useState("");
+  const [staff, setStaff] = useState("");
   const [licence, setLicence] = useState("");
   const [licenceValid, setLicenceValid] = useState("");
   const [remarks, setRemarks] = useState("");
@@ -56,6 +57,7 @@ export default function AmbulanceForm({
           check_date: date,
           shift,
           driver_name: driver.trim(),
+          staff_name: staff.trim() || null,
           licence_no: licence.trim() || null,
           licence_valid_until: licenceValid || null,
           remarks: remarks.trim() || null,
@@ -171,6 +173,16 @@ export default function AmbulanceForm({
                 onChange={setDriver}
                 label="Driver name"
                 labelHi="चालक का नाम"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <NameField
+                value={staff}
+                onChange={setStaff}
+                label="Staff name"
+                labelHi="स्टाफ का नाम"
+                placeholder="OHC staff on duty / ड्यूटी पर स्टाफ"
+                optional
               />
             </div>
             <Field label={<>Licence no. <span className="hi text-muted">/ लाइसेंस नम्बर</span></>}>

@@ -83,7 +83,7 @@ export const supabaseBackend: Backend = {
         driver_name: i.driver_name,
         licence_no: i.licence_no,
         licence_valid_until: i.licence_valid_until,
-        checked_by_name: i.checked_by_name,
+        staff_name: i.staff_name,
         remarks: i.remarks,
       })
       .select("id")
@@ -249,7 +249,7 @@ export const supabaseBackend: Backend = {
     if (modules.includes("ambulance")) {
       const { data: checks } = await sb
         .from("vehicle_check")
-        .select("id, check_date, shift, driver_name, licence_no, remarks, vehicle(vehicle_no, label)")
+        .select("id, check_date, shift, driver_name, staff_name, licence_no, remarks, vehicle(vehicle_no, label)")
         .gte("check_date", r.from).lte("check_date", r.to)
         .order("check_date", { ascending: false }).order("shift");
 
@@ -281,7 +281,9 @@ export const supabaseBackend: Backend = {
         bundle.ambulance.push({
           check_date: c.check_date, shift: c.shift,
           vehicle: veh ? `${veh.label} (${veh.vehicle_no})` : "",
-          driver_name: c.driver_name, licence_no: c.licence_no ?? "",
+          driver_name: c.driver_name,
+          staff_name: c.staff_name ?? "",
+          licence_no: c.licence_no ?? "",
           marks, failedIndexes,
           remarks: [c.remarks, ...notes].filter(Boolean).join(" | "),
         });

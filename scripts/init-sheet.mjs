@@ -134,7 +134,7 @@ const MEDICINE_META = [
 ];
 const VEHICLE_META = [
   'check_date', 'shift', 'vehicle_no', 'vehicle', 'driver_name',
-  'licence_no', 'licence_valid_until', 'checked_by', 'remarks', 'submitted_at', 'id',
+  'staff_name', 'licence_no', 'licence_valid_until', 'remarks', 'submitted_at', 'id',
 ];
 
 const TRANSACTION = {

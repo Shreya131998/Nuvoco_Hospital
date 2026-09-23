@@ -59,19 +59,19 @@ export async function GET(req: Request) {
   if (modules.includes("ambulance")) {
     const ws = wb.addWorksheet("Ambulance Check List");
     // Hindi above English, as on the paper form.
-    const cols = ["दिनांक / Date", "शिफ्ट / Shift", "गाड़ी / Vehicle", "चालक / Driver", "लाइसेंस"];
+    const cols = ["दिनांक / Date", "शिफ्ट / Shift", "गाड़ी / Vehicle", "चालक / Driver", "स्टाफ / Staff", "लाइसेंस"];
     data.pointColumns.forEach((p) => cols.push(`${p.label_hi}\n${p.label_en}`));
     cols.push("टिप्पणी / Remarks");
-    header(ws, cols, [12, 8, 22, 22, 16, ...data.pointColumns.map(() => 11), 40]);
+    header(ws, cols, [12, 8, 22, 20, 20, 16, ...data.pointColumns.map(() => 11), 40]);
     ws.getRow(1).height = 38;
 
     data.ambulance.forEach((c) => {
       const row = ws.addRow([
-        c.check_date, c.shift, c.vehicle, c.driver_name, c.licence_no,
-        ...c.marks, c.remarks,
+        c.check_date, c.shift, c.vehicle, c.driver_name, c.staff_name,
+        c.licence_no, ...c.marks, c.remarks,
       ]);
       // Colour the failures so a reviewer finds them without reading every cell.
-      c.failedIndexes.forEach((i) => { row.getCell(6 + i).fill = PINK; });
+      c.failedIndexes.forEach((i) => { row.getCell(7 + i).fill = PINK; });
     });
   }
 

@@ -225,9 +225,9 @@ export async function submitAmbulance(
     vehicle.vehicle_no,
     vehicle.label,
     input.driver_name,
+    input.staff_name ?? "",
     input.licence_no ?? "",
     input.licence_valid_until ?? "",
-    input.checked_by_name ?? "",
     input.remarks ?? "",
     new Date().toISOString(),
     id,
@@ -340,8 +340,9 @@ async function getFirstAidChecks(): Promise<FirstAidRow[]> {
 
 type VehicleRow = {
   id: string; check_date: string; shift: string; vehicle_no: string;
-  vehicle: string; driver_name: string; licence_no: string; remarks: string;
-  submitted_at: string; issues: string; perPoint: Map<number, boolean>;
+  vehicle: string; driver_name: string; staff_name: string; licence_no: string;
+  remarks: string; submitted_at: string; issues: string;
+  perPoint: Map<number, boolean>;
 };
 
 async function getVehicleChecks(): Promise<VehicleRow[]> {
@@ -370,6 +371,7 @@ async function getVehicleChecks(): Promise<VehicleRow[]> {
         vehicle_no: r[col("vehicle_no")] ?? "",
         vehicle: r[col("vehicle")] ?? "",
         driver_name: r[col("driver_name")] ?? "",
+        staff_name: r[col("staff_name")] ?? "",
         licence_no: r[col("licence_no")] ?? "",
         remarks: r[col("remarks")] ?? "",
         submitted_at: r[col("submitted_at")] ?? "",
@@ -666,6 +668,7 @@ export async function getShiftCompliance(r: DashboardRange): Promise<ShiftCompli
           shift,
           done: Boolean(hit),
           driver_name: hit?.driver_name ?? null,
+          staff_name: hit?.staff_name || null,
           failed_count: hit ? [...hit.perPoint.values()].filter((ok) => !ok).length : 0,
           remarks: hit?.remarks || null,
         });
@@ -795,7 +798,8 @@ export async function getExportData(
         bundle.ambulance.push({
           check_date: c.check_date, shift: c.shift,
           vehicle: `${c.vehicle} (${c.vehicle_no})`,
-          driver_name: c.driver_name, licence_no: c.licence_no,
+          driver_name: c.driver_name, staff_name: c.staff_name,
+          licence_no: c.licence_no,
           marks: points.map((p) => {
             const v = c.perPoint.get(p.sort_order);
             return v === undefined ? "" : v ? OK_MARK : FAIL_MARK;

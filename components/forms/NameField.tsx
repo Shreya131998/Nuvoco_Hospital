@@ -16,12 +16,16 @@ export function NameField({
   label = "Your name",
   labelHi = "आपका नाम",
   error,
+  optional = false,
+  placeholder = "Type your full name / पूरा नाम लिखें",
 }: {
   value: string;
   onChange: (v: string) => void;
   label?: string;
   labelHi?: string;
   error?: string | null;
+  optional?: boolean;
+  placeholder?: string;
 }) {
   return (
     <Field
@@ -30,13 +34,14 @@ export function NameField({
           {label} <span className="hi text-muted">/ {labelHi}</span>
         </>
       }
-      required
+      required={!optional}
+      hint={optional ? "optional" : undefined}
       error={error}
     >
       <input
         type="text"
         className={inputClass}
-        placeholder="Type your full name / पूरा नाम लिखें"
+        placeholder={placeholder}
         autoComplete="name"
         maxLength={80}
         value={value}

@@ -124,6 +124,7 @@ export default async function AmbulanceDash({
             { key: "s", header: "Shift", cell: (r) => <span className="font-semibold">{r.shift}</span> },
             { key: "v", header: "Vehicle", cell: (r) => r.vehicle_label },
             { key: "n", header: "Driver", cell: (r) => <span className="font-medium">{r.driver_name}</span> },
+            { key: "st", header: "Staff", cell: (r) => <span>{r.staff_name ?? <span className="text-muted">—</span>}</span> },
             {
               key: "f", header: "Issues",
               cell: (r) =>

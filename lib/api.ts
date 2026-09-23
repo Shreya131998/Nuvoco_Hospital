@@ -25,6 +25,12 @@ export function personName(v: unknown, field: string): string {
   return str(v, field, 80).replace(/\s+/g, " ");
 }
 
+/** Same normalisation as personName, but the field may be left blank. */
+export function optPersonName(v: unknown, field: string): string | null {
+  if (v === null || v === undefined || String(v).trim() === "") return null;
+  return personName(v, field);
+}
+
 export function optStr(v: unknown, field: string, max = 2000): string | null {
   if (v === null || v === undefined || v === "") return null;
   if (typeof v !== "string") throw new BadRequest(`${field} must be text`);

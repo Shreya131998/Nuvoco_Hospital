@@ -127,6 +127,7 @@ export type ShiftCompliance = {
   shift: Shift;
   done: boolean;
   driver_name: string | null;
+  staff_name: string | null;
   failed_count: number;
   remarks: string | null;
 };

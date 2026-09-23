@@ -110,7 +110,7 @@ is a running log — one row per entry, appended at the bottom.
 | Tab | One row = | Columns |
 |---|---|---|
 | **First Aid Kit** | one box check | 11 details, then *found* / *added* per kit item (45) |
-| **Ambulance Check** | one shift | 11 details, then one ✓/✗ column per check point, then `issues` (35) |
+| **Ambulance Check** | one shift | 11 details (incl. driver + staff name), then one ✓/✗ column per check point, then `issues` (35) |
 | **Medicine Check** | one monthly check | 7 details, then *qty* / *expiry* per medicine (205) |
 
 Five further tabs are **hidden** — `_boxes`, `_items`, `_points`,
